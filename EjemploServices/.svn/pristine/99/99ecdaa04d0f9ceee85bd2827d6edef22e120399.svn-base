@@ -1,0 +1,53 @@
+package com.bootcamp.globant.service;
+
+import android.app.Activity;
+import android.app.IntentService;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+
+public class DownloadService extends IntentService {
+
+	private int result = Activity.RESULT_CANCELED;
+	
+	public DownloadService() {
+		super("MiDownloadService");
+	}
+
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		result = Activity.RESULT_OK;
+		
+		Bundle bundle = intent.getExtras();
+		Messenger messanger = (Messenger) bundle.get("MESSENGER");
+		Message message = Message.obtain();
+		message.arg1 = result;
+		
+		try {
+			messanger.send(message);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onCreate() {
+		// TODO Accion a desarrollar cuando el Servicio is created.
+		super.onCreate();
+	}
+	
+	@Override
+	public IBinder onBind(Intent intent) {
+		// TODO Aqui ponemos la implementación del servicio bindeado.
+		return super.onBind(intent);
+	}
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO Este metodo es disparado cuando llamamos la al startService y nos permite devolver un valor para que el sistema sepa que hacer si el servicio es matado por el runtime.
+		return super.onStartCommand(intent, flags, startId);
+	}
+}
