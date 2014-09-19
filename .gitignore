@@ -37,7 +37,11 @@ ehthumbs.db
 Thumbs.db
 
 # Some Directories
+######################
 .settings/
 ./bin
-.classpath
+.svn/
 
+# Other Stuff
+######################
+.classpath
